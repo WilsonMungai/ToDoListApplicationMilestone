@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskTableViewController: UITableViewController
+class TaskTableTableViewController: UITableViewController
 {
 
     // Array of number of tasks
