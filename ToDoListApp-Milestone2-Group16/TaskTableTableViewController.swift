@@ -61,5 +61,61 @@ class TaskTableViewController: UITableViewController
         tableView.reloadData()
     }
     
+    @IBAction func didTapAdd ()
+    {
+        print("Add task")
+        
+        let entryTaskViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
+    
+        
+        entryTaskViewController.title = "New Task"
+        
+        navigationController?.pushViewController(entryTaskViewController, animated: true)
+        
+        entryTaskViewController.update =
+        {
+            // This instructs the we need to prioritize updating the tasks
+            DispatchQueue.main.async
+            {
+                // Call it when we enter the tableView controller since we want to reload the table view
+                // We add self to explicitly tell the curly braces that we want to perform the update tasks inside the this function
+                self.updateTasks()
+            }
+            
+        }
+    }
+
+    // Handles tasks at a cell
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        // Deselects the cell
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let taskViewController = storyboard?.instantiateViewController(withIdentifier: "task") as! TaskViewController
+        
+        taskViewController.title = "View Task"
+        
+        taskViewController.task = tasks[indexPath.row]
+        
+        navigationController?.pushViewController(taskViewController, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return tasks.count
+    }
+    
+    // returns cell for a given row
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        // Get an instance of a cell and configure the cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        // Indexpath represents the position of our cell in the table view
+        cell.textLabel?.text = tasks[indexPath.row]
+        
+        return cell
+    }
+    
 }
     
