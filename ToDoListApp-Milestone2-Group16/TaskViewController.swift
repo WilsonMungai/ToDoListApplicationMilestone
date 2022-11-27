@@ -7,23 +7,31 @@
 
 import UIKit
 
-class TaskViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+class TaskViewController: UIViewController
+{
+    // Deletion Handler
+    public var deletionHandler: (() -> Void)?
     
+    @IBOutlet weak var taskName: UILabel!
+    
+    @IBOutlet weak var taskNotes: UILabel!
+    
+    @IBOutlet weak var taskDueDate: UILabel!
+    
+    var task : String?
 
-    /*
-    // MARK: - Navigation
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        taskName.text = task
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteTask))
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
 
+    @objc func deleteTask()
+    {
+        
+    }
 }
