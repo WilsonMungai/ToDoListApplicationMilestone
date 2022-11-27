@@ -36,5 +36,30 @@ class TaskTableViewController: UITableViewController
         }
     }
     
+    // Function to update the tasks in the table view
+    func updateTasks ()
+    {
+        // Remove all elements in the task array to avoid duplicates
+        tasks.removeAll()
+        
+        // Gets the count
+        guard let count = UserDefaults().value(forKey: "count") as? Int else
+        {
+            return
+        }
+        
+        // We want to iterate from 0 upto the count inclusive of the count so that we get each of our tasks and add to the tasks array
+        for x in 0..<count
+        {
+            // The current positon is x where it will start
+            if let task = UserDefaults().value(forKey: "task_\(x+1)") as? String {
+                tasks.append(task)
+            }
+        }
+        
+        // Reload our data
+        tableView.reloadData()
+    }
+    
 }
     
