@@ -1,9 +1,19 @@
-//
-//  TaskTableTableViewController.swift
-//  ToDoListApp-Milestone2-Group16
-//
-//  Created by Wilson Mungai on 2022-11-27.
-//
+/*
+ Group 16
+ Name Bing Pan                               301317241
+ Name Wilson Mungai Muguthi                  301287641
+ Name Gideon Shewana                         301195064
+ 
+ Last Modification: 27/11/2022
+ 
+ Version 1
+ 
+ Description
+ 
+ A to do list app that list all tasks added in a table view in the table view controller.
+ The second page is a ui view controller that has textfield to input tasks details and a
+ date picker. There are also switches to enable due date and mark tasks as complete.
+ */
 
 import UIKit
 
@@ -32,10 +42,10 @@ class TaskTableTableViewController: UITableViewController
             updateTasks()
             
             // Reload our data
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
-    
+
     // Function to update the tasks in the table view
     func updateTasks ()
     {
@@ -55,18 +65,16 @@ class TaskTableTableViewController: UITableViewController
             if let task = UserDefaults().value(forKey: "task_\(x+1)") as? String {
                 tasks.append(task)
             }
+            
+            // Reload our data
+            tableView.reloadData()
         }
-        
-        // Reload our data
-        tableView.reloadData()
     }
     
+    // Add task function
     @IBAction func didTapAdd ()
     {
-        print("Add task")
-        
         let entryTaskViewController = storyboard?.instantiateViewController(withIdentifier: "entry") as! EntryViewController
-    
         
         entryTaskViewController.title = "New Task"
         
@@ -78,13 +86,12 @@ class TaskTableTableViewController: UITableViewController
             DispatchQueue.main.async
             {
                 // Call it when we enter the tableView controller since we want to reload the table view
-                // We add self to explicitly tell the curly braces that we want to perform the update tasks inside the this function
+                // We add self to explicitly perform the update tasks inside the this function
                 self.updateTasks()
             }
-            
         }
     }
-
+    
     // Handles tasks at a cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
@@ -113,9 +120,7 @@ class TaskTableTableViewController: UITableViewController
         
         // Indexpath represents the position of our cell in the table view
         cell.textLabel?.text = tasks[indexPath.row]
-        
         return cell
     }
-    
 }
     
